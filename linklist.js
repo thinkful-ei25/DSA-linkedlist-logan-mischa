@@ -40,6 +40,7 @@ class LinkedList {
       tempNode.next = new _Node(value, null);
     }
   }
+
   //find(value)
   //returns the node
   //start at head => while tempNode does not equal value => once we find return tempNode
@@ -83,6 +84,9 @@ class LinkedList {
     return true;
   }
 }
+
+module.exports = LinkedList;
+module.exports = _Node;
 
 const linkedList = new LinkedList();
 linkedList.insertFirst(1);
