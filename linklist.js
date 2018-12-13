@@ -191,7 +191,7 @@ function main() {
   SLL.insertAfter('Helo', 'Hotdog');
   SLL.insertAt(0, 'Kat');
   SLL.remove('Tauhida');
-  console.log(display(SLL));
+  console.log(display(SLL);
 }
 main();
 
