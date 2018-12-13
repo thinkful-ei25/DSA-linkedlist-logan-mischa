@@ -134,16 +134,16 @@ class LinkedList {
 
   // 1->2->3->null
   // position = 4
-  insertAt(position, value=0){
-    if(position === 0){
+  insertAt(position, value = 0) {
+    if (position === 0) {
       return this.insertFirst(value);
     }
-    if(position < 0){
+    if (position < 0) {
       throw new Error('please insert position greater than or equal to 0!!!!');
     }
     let currentNode = this.head;
-    for(let i = 0; i < position-1; i++){
-      if(currentNode.next === null){
+    for (let i = 0; i < position - 1; i++) {
+      if (currentNode.next === null) {
         currentNode.next = new _Node(value, currentNode.next);
         return;
       }
@@ -164,18 +164,89 @@ class LinkedList {
   console.log(value)
   str += value + -> 
 */
-function display(LL){
-  if(LL.head === null){
+function display(LL) {
+  if (LL.head === null) {
     return null;
   }
   let displayStr = '';
   let currentNode = LL.head;
-  while(currentNode){
+  while (currentNode) {
     // console.log(currentNode.value);
     displayStr += currentNode.value + '->';
     currentNode = currentNode.next;
   }
   return displayStr += 'null';
+}
+
+function size(LL) {
+  let currentNode = LL.head;
+  let size = 0;
+  if (LL.head === null) {
+    return size;
+  }
+  while (currentNode) {
+    currentNode = currentNode.next;
+    size++;
+  }
+  return size;
+}
+
+function isEmpty(LL) {
+  return LL.head === null;
+}
+
+// current and previous
+// while currentNode doesnt equal item continue forward
+function findPrevious(LL, item) {
+  let currentNode = LL.head;
+  let previous = LL.head;
+  if (LL.head.value === item) {
+    return 'Nothing before item';
+  }
+  if (isEmpty(LL)) {
+    return 'Empty';
+  }
+  while (currentNode) {
+    if (currentNode.value === item) {
+      return previous.value;
+    }
+    previous = currentNode;
+    currentNode = currentNode.next;
+  }
+  return false;
+}
+
+// use while loop to traverse through, return last
+function findLast(LL) {
+  if (isEmpty(LL)) {
+    return 'Empty';
+  }
+  let currentNode = LL.head;
+  while (currentNode.next !== null) {
+    currentNode = currentNode.next;
+  }
+  return currentNode;
+}
+
+// reverse string
+// Write an algorithm to reverse a linked list. 
+// The runtime complexity of your algorithm should be linear O(n). 
+// For this exercise, notice, we are not asking you just to print the linked list in reverse or use another linked list to store the value in reverse order. 
+// Your program should reverse the direction of a given singly-linked list. 
+// In other words, all pointers should point backward. BONUS: Solve this problem using recursive algorithm (and vice versa).
+
+function reverseList(ll){
+  let current = ll.head;
+  let previous = null;
+  let node; 
+  while(current){   
+    node = current.next;
+    current.next = previous; 
+    previous = current;
+    current = node; 
+  }
+  ll.head = previous;
+  return ll;
 }
 
 function main() {
@@ -191,10 +262,36 @@ function main() {
   SLL.insertAfter('Helo', 'Hotdog');
   SLL.insertAt(0, 'Kat');
   SLL.remove('Tauhida');
-  console.log(display(SLL);
+
+
+  console.log(display(SLL));
+  const reversed = reverseList(SLL);
+  console.log(display(reversed));
+  // console.log(display(reversed));
+  // console.log(size(SLL));
+  // console.log(isEmpty(SLL));
+  // console.log(findPrevious(SLL, 'Boomer'));
+  // console.log(findLast(SLL));
+
 }
 main();
 
-
-
+//Mystery Program
+//if newNode is returned then the program removes the duplicate values
+//O(N^2); iterating through every item n-times and 2 while loops
+function WhatDoesThisProgramDo(lst) {
+  let current = lst.head;
+  while (current !== null) {
+    let newNode = current;
+    while (newNode.next !== null) {
+      if (newNode.next.value === current.value) {
+        newNode.next = newNode.next.next;
+      }
+      else {
+        newNode = newNode.next;
+      }
+    }
+    current = current.next;
+  }
+}
 
