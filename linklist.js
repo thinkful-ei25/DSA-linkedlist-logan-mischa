@@ -6,7 +6,6 @@ class _Node {
   }
 }
 
-
 class LinkedList {
   constructor() {
     this.head = null;
@@ -21,12 +20,8 @@ class LinkedList {
   //check if list is empty --> if it is then insertFirst(value)
   //loop through until value === null 
   // ===> then create new node, update null to new node and set new node next ptr to null
-
-
   /* 
-  
   head|2567| ==> [|2567| newNode value |145|] ==> [|145|node1 |234|] --> |234|node2 |null|] ==> |456|node3 |null|]
-  
   */
   insertLast(value) {
     if (this.head === null) {
@@ -82,12 +77,68 @@ class LinkedList {
     previousNode.next = currentNode.next;
     return true;
   }
+  //insertBefore(Boomer, Athena)
+  //  Input: 1 -> 2 -> 3 -> 4
+  //  Insert: (2, CHICKEN)
+  //  Output: 1 -> CHICKEN -> 2 -> 3 -> 4
+  // Start at the head
+  // two temp nodes: previous and current: both starting at head
+  // While current.value is the value parameter we create a new node and assign that to previous.next
+  // then we assign new node to point to current node
+  // need to do error checking: if head then call insertFirst
+  // if next node is null set previous node to new node and new node to null
+  insertBefore(nextNodeValue, value) {
+    let current = this.head;
+    let previous = this.head;
+    //check if list is not empty
+    if (nextNodeValue === this.head.value) {
+      this.insertFirst(value);
+      return;
+    }
+    while (current) {
+      if (current.value === nextNodeValue) {
+        previous.next = new _Node(value, current);
+        return;
+      }
+      previous = current;
+      current = current.next;
+    }
+    return false;
+  }
+
+  //insertAfter(Helo, Hotdog)
+  insertAfter(nextNodeValue, value) {
+    let current = this.head;
+    while (current) {
+      if (current.value === nextNodeValue) {
+        current.next = new _Node(value, current.next);
+        return;
+      }
+      current = current.next;
+    }
+    return false;
+  }
 }
 
-const linkedList = new LinkedList();
-linkedList.insertFirst(1);
-linkedList.insertFirst(23);
-linkedList.insertLast(234);
-console.log(linkedList.remove(22));
-// console.log(linkedList.find(3));
-console.log(JSON.stringify(linkedList));
+function main() {
+  const SLL = new LinkedList();
+  SLL.insertFirst('Apollo');
+  SLL.insertLast('Boomer');
+  SLL.insertLast('Helo');
+  SLL.insertLast('Husker');
+  SLL.insertLast('Starbuck');
+  SLL.insertLast('Tauhida');
+  // console.log(SLL.remove('squirrel'));
+  SLL.insertBefore('Boomer', 'Athena');
+  SLL.insertAfter('Helo', 'Hotdog');
+  console.log(JSON.stringify(SLL));
+}
+
+main();
+// const linkedList = new LinkedList();
+// linkedList.insertFirst(1);
+// linkedList.insertFirst(23);
+// linkedList.insertLast(234);
+// console.log(linkedList.remove(22));
+// // console.log(linkedList.find(3));
+// console.log(JSON.stringify(linkedList));
